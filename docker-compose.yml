@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+
+  student-portal:
+    build: ./student-portal
+    ports:
+      - "5000:5000"
+    restart: always
+
+  attendance-service:
+    build: ./attendance-service
+    ports:
+      - "5001:5001"
+    restart: always
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "5002:5002"
+    restart: always
+
+  admin-dashboard:
+    build: ./admin-dashboard
+    ports:
+      - "5003:5003"
+    restart: always
+
+  mysql:
+    image: mysql:8
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+    restart: always
+
+volumes:
+  mysql-data:
