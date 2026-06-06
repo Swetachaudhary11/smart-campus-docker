@@ -1,0 +1,32 @@
+name: Smart Campus CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  docker-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Verify Docker Installation
+        run: docker --version
+
+      - name: Build Docker Containers
+        run: docker compose build
+
+      - name: Start Containers
+        run: docker compose up -d
+
+      - name: Check Running Containers
+        run: docker ps
+
+      - name: Stop Containers
+        run: docker compose down
